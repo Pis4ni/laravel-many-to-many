@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Technology extends Model
 {
     use HasFactory;
+    public function posts() {
+        return $this->belongsToMany(Project::class);
+      }
 }
