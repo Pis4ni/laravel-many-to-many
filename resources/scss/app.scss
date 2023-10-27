@@ -1,0 +1,23 @@
+@import '~bootstrap/scss/bootstrap';
+
+@keyframes move-it {
+    0% {
+      background-position: initial;
+    }
+    100% {
+      background-position: 100px 0px;
+    }
+  }
+  
+  .red-strip {  
+    background: repeating-linear-gradient(
+    45deg,
+    #ff0000,
+    #ff0000 5%,
+    #562c2c 5%,
+    #562c2c 10%,
+    
+  );
+    background-size: 100px 100px;
+    animation: move-it 5s linear infinite;
+  }
