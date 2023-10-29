@@ -27,48 +27,101 @@
     <form action="{{ route('admin.projects.store') }}" method="post">
         
         @csrf
-        {{-- * title --}}
-        <div class="mb-3">
-            <label for="title">Title</label>
-            <input type="text" class="form-control" id="title" name="title">
-        </div>
 
+        <div class="row">
 
-        {{-- * select type --}}
-        <div class="mb-3">
+            {{-- * title --}}
+            <div class="col-12">
+                <label for="title">Title</label>
+                <input type="text" class="form-control" id="title" name="title">
+            </div>
     
-            <label for="type_id" class="form-label">Type:</label>
-            <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
-                <option value="">No Type</option>
-                @foreach ($types as $type)
-                <option value="{{ $type->id }}" @if (old('type_id') == $type->id) selected @endif>{{ $type->label }}
-                </option>
-                @endforeach
-            </select>
-                @error('type_id')
-                <div class="invalid-feedback">
-                    {{ $message }}
-                </div>
-                @enderror
-                
-        </div>
-
-        {{-- * description --}}
-        <div class="mb-3">
-            <label for="description" class="form-label">Description</label>
-            <textarea class="form-control" id="description" name="description" rows="4"></textarea>
-        </div>
-
-
-                <button type="submit" class="btn btn-outline-success">Save</button>
+            {{-- * select type --}}
+            <div class="col-6">
         
+                <label for="type_id" class="form-label">Type:</label>
+                <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
+                    <option value="">No Type</option>
+                    @foreach ($types as $type)
+                    <option value="{{ $type->id }}" @if (old('type_id') == $type->id) selected @endif>{{ $type->label }}
+                    </option>
+                    @endforeach
+                </select>
+                    @error('type_id')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                    
+            </div>
+    
+            {{-- * technologies --}}
+    
+            <div class="col-6">
+                
+                <label class="form-label">Technologies</label>
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        Technologies
+                    </a>
+                  
+                    <ul class="dropdown-menu">
+                        @foreach ($technologies as $technology)
+                            <li class="px-2">
+                                <input
+                                    type="checkbox"
+                                    id="technology-{{ $technology->id }}"
+                                    value="{{ $technology->id }}"
+                                    name="technologies[]"
+                                    class="form-check-input"
+                                    @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
+                                >
+                                <label for="technology-{{ $technology->id }}" class="ms-3">
+                                    {{ $technology->label }}
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+    
+               {{--  <div class="form-check @error('technologies') is-invalid @enderror p-0">
+                    @foreach ($technologies as $technology)
+                    <label for="technology-{{ $technology->id }}">
+                    {{ $technology->label }}
+                    </label>
+                    <input
+                    type="checkbox"
+                    id="technology-{{ $technology->id }}"
+                    value="{{ $technology->id }}"
+                    name="technologies[]"
+                    class="form-check-control"
+                    @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
+                    >
+                    @endforeach
+                    @error('technologies')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div> --}}
+    
+            </div>
+    
+            {{-- * description --}}
+    
+            <div class="col-12">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+            </div>
+        </div>
 
-        {{-- <div class="mb-3">
+        <button type="submit" class="btn btn-outline-success my-4">Save</button>
+        
+        {{-- <div class="col-6">
             <label for=""></label>
             <input type="text" class="form-control" id="" name="">
         </div> --}}
 
-    
     </form>
 
 </div>

@@ -29,8 +29,10 @@ class StoreProjectRequest extends FormRequest
             "description" => "required|string|min:50",
 
             // *------------------------------------------------------*
-
-            'type_id' => ['nullable', 'exists:types,id']
+            
+            'type_id' => ['nullable', 'exists:types,id'],
+            // *------------------------------------------------------*
+            'technologies' => ['nullable', 'exists:technologies,id'],
 
         ];
     }
@@ -49,7 +51,9 @@ class StoreProjectRequest extends FormRequest
             'description.min' => 'La descrizione deve essere lunga almeno 50 caratter',
 
             // *------------------------------------------------------*
-            'type_id.exists' => 'La categoria inserita non è valida'
+            'type_id.exists' => 'La categoria inserita non è valida',
+            // *------------------------------------------------------*
+            'technologies.exists' => 'I technology inseriti non sono validi',
     ];
     }
 }

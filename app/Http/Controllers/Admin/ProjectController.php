@@ -3,10 +3,12 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Type;
 use Illuminate\Support\Str;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 
 
@@ -31,7 +33,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::orderBy('label')->get();
+        return view('admin.projects.create', compact('types','technologies'));
     }
 
     /**
@@ -47,6 +50,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->title);
         $project->save();
+        if(Arr::exists($data, "technologies")) $project->technologies()->attach($data["technologies"]);
 
         return redirect()->route('admin.projects.show', $project);
     }
@@ -71,7 +75,9 @@ class ProjectController extends Controller
     public function edit(Project $project)
     {
         $types = Type::all();
-        return view('admin.projects.edit', compact('project', 'types'));
+        $technologies = Technology::orderBy('label')->get();
+        $project_technology = $project->technologies->pluck('id')->toArray();
+        return view('admin.projects.edit', compact('project', 'types', 'technologies', 'project_technology'));
     }
 
     /**
@@ -88,6 +94,14 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->title);
         $project->save();
+
+        if (isset($data['technologies'])) {
+            $project->technologies()->sync($data['technologies']);
+        } else {
+            $project->technologies()->detach();
+        }
+
+
         return redirect()->route('admin.projects.show', $project);
     }
 
@@ -99,6 +113,7 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        $project->technologies()->detach();
         $project->delete();
         return redirect()->route('admin.projects.index');
     }

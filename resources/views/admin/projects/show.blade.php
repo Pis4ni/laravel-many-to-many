@@ -22,6 +22,15 @@
         {{$project->type?->label}}
         </div>
         <div class="col-6">
+            <strong>Technologies:</strong> <br>
+            
+            @forelse ($project->technologies as $technology)
+                {{ $technology->label }} @unless($loop->last) , @else . @endunless
+            @empty
+                Nessun technology associato
+            @endforelse
+        </div>
+        <div class="col-100">
             <p>
                 <strong>Slug:</strong>
                 <br>

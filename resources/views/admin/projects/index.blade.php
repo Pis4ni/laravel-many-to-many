@@ -19,6 +19,7 @@
                   <th scope="col">ID</th>
                   <th scope="col">Title</th>
                   <th scope="col">Type</th>
+                  <th scope="col">Technologies</th>
                   <th scope="col">Slug</th>
                   <th scope="col">Created at</th>
                   <th scope='col'>Last Update</th>
@@ -30,7 +31,19 @@
                 <tr>
                     <th scope="row">{{$project->id}}</th>
                     <td>{{$project->title}}</td>
-                    <td>{{$project->type?->label}}</td>
+                    <td><span class="badge" style="background-color: {{$project->type->color}}">{{$project->type?->label}}</span></td>
+                    <td>
+                        @forelse($project->technologies as $technology)
+                          
+                          <span class="badge" style="background-color: {{$technology->color}}">{{ $technology->label }}</span>
+
+                          @unless($loop->last) , 
+                          @else . 
+                          @endunless
+                        @empty
+                          -
+                        @endforelse
+                        </td>
                     <td>{{$project->slug}}</td>
                     <td>{{$project->created_at}}</td>
                     <td>{{$project->updated_at}}</td>
