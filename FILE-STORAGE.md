@@ -75,7 +75,7 @@ fare i seguenti step per predisporre il progetto al lavoro:
 
 -  aggiungere la richiesta per cover_image 
     -       RULES
-            'cover_image' => ['mimes:jpeg,jpg,png','nullable', max:512]
+            'cover_image' => ['mimes:jpeg,jpg,png','nullable', 'max:512']
 
     -       MESSAGES
             'cover_image.image' => 'il file selezionato deve essere un\'immagine'

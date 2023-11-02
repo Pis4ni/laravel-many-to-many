@@ -29,7 +29,8 @@ class StoreProjectRequest extends FormRequest
             "description" => "required|string|min:50",
 
             // *------------------------------------------------------*
-            
+            'cover_image' => ['mimes:jpeg,jpg,png','nullable', 'max:512'],
+            // *------------------------------------------------------*
             'type_id' => ['nullable', 'exists:types,id'],
             // *------------------------------------------------------*
             'technologies' => ['nullable', 'exists:technologies,id'],
@@ -52,6 +53,9 @@ class StoreProjectRequest extends FormRequest
 
             // *------------------------------------------------------*
             'type_id.exists' => 'La categoria inserita non è valida',
+            // *------------------------------------------------------*
+            'cover_image.image' => 'il file selezionato deve essere un\'immagine',
+            'cover_image.max' => 'il file selezionato deve essere massimo di 512KB',
             // *------------------------------------------------------*
             'technologies.exists' => 'I technology inseriti non sono validi',
     ];
