@@ -87,8 +87,8 @@ spostiamoci sulla funzione pubblica dedicata al controllo del comportamento 'sto
 nel ProjectController, li, prima del '$project->save()' creiamo un altra riga ed inseriamo:
         <!-- ! ATTENZIONE SE SI USA L'ID NEL PATH IL TUTTO ANDRÀ SCRITTO DOPO IL ->save() -->
         
-        if(Arr::exist($data,'cover_image')){
--      $project->cover_image = Storage::put("uploads/projects/{$poject->id}/cover_image",$data['cover_image']);
+-       if(Arr::exist($data,'cover_image')){
+        $project->cover_image = Storage::put("uploads/projects/{$project->id}/cover_image",$data['cover_image']);
         }
         <!-- ! se si usa l'id come in questo caso aggiungere anche il save (due volte uno prima uno dopo la riga di Storage ) -->
         $project->save();

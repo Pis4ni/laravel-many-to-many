@@ -7,6 +7,7 @@ use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Models\Project;
 use App\Models\Type;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
@@ -49,6 +50,10 @@ class ProjectController extends Controller
         $project = new Project;
         $project->fill($data);
         $project->slug = Str::slug($project->title);
+        $project->save();
+        if(Arr::exist($data,'cover_image')){
+            $project->cover_image = Storage::put("uploads/projects/{$project->id}/cover_image",$data['cover_image']);
+        }
         $project->save();
         if(Arr::exists($data, "technologies")) $project->technologies()->attach($data["technologies"]);
 
