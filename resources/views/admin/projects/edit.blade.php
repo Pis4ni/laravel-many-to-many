@@ -107,7 +107,20 @@
                 </div> --}}
     
             </div>
-    
+
+            {{-- * file upload --}}         
+            <div class="col-6">
+                <label for="file-input" class="form-label">Cover Image</label>
+                <input class="form-control" type="file" id="formFile" name="file-input" id="file-input">
+            </div>
+
+            {{-- * file preview --}}
+
+            <div class="col-6">
+                <label for="cover_preview">Cover Preview</label>
+                <img src="" alt="" name="cover_preview">
+            </div>
+            
             {{-- * description --}}
     
             <div class="col-12">
@@ -119,10 +132,7 @@
         <button type="submit" class="btn btn-outline-warning my-4">Edit</button>
 
 
-        {{-- <div class="mb-3">
-            <label for=""></label>
-            <input type="text" class="form-control" id="" name="">
-        </div> --}}
+
 
     
     </form>

@@ -15,11 +15,16 @@
     </div>
 
     <div class="row">
+        <div class="col-12 mb-2">
+            <strong>Cover Image:</strong>
+            <img src="{{$project->cover_image}}" alt="">
+        </div>
         <div class="col-6">
             <p>
-        <strong>Type:</strong>
-        <br>
-        {{$project->type?->label}}
+                <strong>Type:</strong>
+                <br>
+                {{$project->type?->label}}
+            </p>
         </div>
         <div class="col-6">
             <strong>Technologies:</strong> <br>

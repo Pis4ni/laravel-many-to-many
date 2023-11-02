@@ -54,68 +54,73 @@
                     @enderror
                     
             </div>
-                        {{-- * technologies --}}
+
+            {{-- * technologies --}}
     
-                        <div class="col-6">
+            <div class="col-6">
+            
+                <label class="form-label">Technologies</label>
+                <div class="dropdown">
+                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        Technologies
+                    </a>
                 
-                            <label class="form-label">Technologies</label>
-                            <div class="dropdown">
-                                <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                                    Technologies
-                                </a>
-                              
-                                <ul class="dropdown-menu">
-                                    @foreach ($technologies as $technology)
-                                        <li class="px-2">
-                                            <input
-                                                type="checkbox"
-                                                id="technology-{{ $technology->id }}"
-                                                value="{{ $technology->id }}"
-                                                name="technologies[]"
-                                                class="form-check-input"
-                                                @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
-                                            >
-                                            <label for="technology-{{ $technology->id }}" class="ms-3">
-                                                {{ $technology->label }}
-                                            </label>
-                                        </li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                
-                           {{--  <div class="form-check @error('technologies') is-invalid @enderror p-0">
-                                @foreach ($technologies as $technology)
-                                <label for="technology-{{ $technology->id }}">
-                                {{ $technology->label }}
-                                </label>
+                    <ul class="dropdown-menu">
+                        @foreach ($technologies as $technology)
+                            <li class="px-2">
                                 <input
-                                type="checkbox"
-                                id="technology-{{ $technology->id }}"
-                                value="{{ $technology->id }}"
-                                name="technologies[]"
-                                class="form-check-control"
-                                @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
+                                    type="checkbox"
+                                    id="technology-{{ $technology->id }}"
+                                    value="{{ $technology->id }}"
+                                    name="technologies[]"
+                                    class="form-check-input"
+                                    @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
                                 >
-                                @endforeach
-                                @error('technologies')
-                                <div class="invalid-feedback">
-                                    {{ $message }}
-                                </div>
-                                @enderror
-                            </div> --}}
-                
-                        </div>
+                                <label for="technology-{{ $technology->id }}" class="ms-3">
+                                    {{ $technology->label }}
+                                </label>
+                            </li>
+                        @endforeach
+                    </ul>
+                </div>
+            
+               {{--  <div class="form-check @error('technologies') is-invalid @enderror p-0">
+                    @foreach ($technologies as $technology)
+                    <label for="technology-{{ $technology->id }}">
+                    {{ $technology->label }}
+                    </label>
+                    <input
+                    type="checkbox"
+                    id="technology-{{ $technology->id }}"
+                    value="{{ $technology->id }}"
+                    name="technologies[]"
+                    class="form-check-control"
+                    @if (in_array($technology->id, old('technologies', $project_technologies ?? []))) checked @endif
+                    >
+                    @endforeach
+                    @error('technologies')
+                    <div class="invalid-feedback">
+                        {{ $message }}
+                    </div>
+                    @enderror
+                </div> --}}
+            
+            </div>
+
             {{-- * file upload --}}
+
             <div class="col-6">
                 <label for="file-input" class="form-label">Cover Image</label>
                 <input class="form-control" type="file" id="formFile" name="file-input" id="file-input">
             </div>
+
+            {{-- * file preview --}}
+
             <div class="col-6">
                 <label for="cover_preview">Cover Preview</label>
                 <img src="" alt="" name="cover_preview">
             </div>
 
-    
             {{-- * description --}}
     
             <div class="col-12">

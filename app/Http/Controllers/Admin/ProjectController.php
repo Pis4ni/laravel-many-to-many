@@ -116,10 +116,14 @@ class ProjectController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Project $project)
+    public function destroy(Request $request, Project $project)
     {
         $project->technologies()->detach();
+        if($request->hasFile('cover_image')){
+            Storage::delete($project->cover_image);
+        }
         $project->delete();
+        
         return redirect()->route('admin.projects.index');
     }
 }
