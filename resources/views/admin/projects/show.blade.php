@@ -16,8 +16,8 @@
 
     <div class="row">
         <div class="col-12 mb-2">
-            <strong>Cover Image:</strong>
-            <img src="{{$project->cover_image}}" alt="">
+            <strong>Cover Image:</strong><br>
+            <img src="{{asset('/storage/' . $project->cover_image)}}" class="img-fluid" id="cover_image_preview">
         </div>
         <div class="col-6">
             <p>

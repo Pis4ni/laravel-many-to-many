@@ -117,8 +117,8 @@
             {{-- * file preview --}}
 
             <div class="col-6">
-                <label for="cover_preview">Cover Preview</label>
-                <img src="" alt="" name="cover_preview">
+                <label for="cover_preview">Cover Preview</label><br>
+                <img src="{{asset('/storage/' . $project->cover_image)}}" class="img-fluid" id="cover_image_preview">
             </div>
             
             {{-- * description --}}
