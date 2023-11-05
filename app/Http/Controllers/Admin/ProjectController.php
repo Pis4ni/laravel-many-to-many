@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProjectRequest;
+use App\Http\Requests\UpdateProjectRequest;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Models\Project;
@@ -51,7 +52,7 @@ class ProjectController extends Controller
         $project->fill($data);
         $project->slug = Str::slug($project->title);
         $project->save();
-        if(Arr::exist($data,'cover_image')){
+        if(Arr::exists($data,'cover_image')){
             $project->cover_image = Storage::put("uploads/projects/{$project->id}/cover_image",$data['cover_image']);
         }
         $project->save();
@@ -92,14 +93,25 @@ class ProjectController extends Controller
      * @param  int  $id
      * *@return \Illuminate\Http\Response
      */
-    public function update(Request $request, Project $project)
-    {
-        $data = $request->all();
+    public function update(UpdateProjectRequest $request, Project $project)
+    {   
+        
+        $data = $request->validated();
         // dd($data);
-        $project->fill($data);
         $project->slug = Str::slug($project->title);
+        
+        
+        if(Arr::exists($data, 'cover_image')){
+            if($request->hasFile('cover_image')){
+                Storage::delete($project->cover_image);
+            }
+            $project->cover_image = Storage::put("uploads/projects/{$project->id}/cover_image",$data['cover_image']);
+            $data['cover_image']=$project->cover_image;
+        };
+        $project->fill($data);
+        
         $project->save();
-
+        
         if (isset($data['technologies'])) {
             $project->technologies()->sync($data['technologies']);
         } else {

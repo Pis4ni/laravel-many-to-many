@@ -3,6 +3,22 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
 @endsection
+@section('scripts')
+<script type="text/javascript" defer>
+    const inputFileElement = document.getElementById('cover_image')
+    const coverImagePreview = document.getElementById('cover_image_preview')
+   
+    console.log(coverImagePreview);
+    if(coverImagePreview.src.split('storage')[1] == ''){
+        coverImagePreview.src = "https://placehold.co/400"
+    }
+    
+    inputFileElement.addEventListener('change', function() {
+        const [ file ] = this.files;
+        coverImagePreview.src = URL.createObjectURL(file)
+    })
+</script>
+@endsection
 @section('content')
 <div class="container mt-5">
     <h1 class="my-5">
@@ -23,7 +39,7 @@
     @endif
     <hr>    
     
-    <form action="{{ route('admin.projects.update', $project) }}" method="post">
+    <form action="{{ route('admin.projects.update', $project) }}" method="post" enctype="multipart/form-data" >
         
         @csrf
         
@@ -34,27 +50,31 @@
             {{-- * title --}}
             <div class="col-12">
                 <label for="title">Title</label>
-                <input type="text" class="form-control" id="title" name="title">
+                <input type="text" class="form-control" id="title" name="title" value="{{ old('title') ?? $project->title }}">
             </div>
     
             {{-- * select type --}}
             <div class="col-6">
         
                 <label for="type_id" class="form-label">Type:</label>
+
                 <select name="type_id" id="type_id" class="form-select @error('type_id') is-invalid @enderror">
                     <option value="">No Type</option>
                     @foreach ($types as $type)
-                    <option value="{{ $type->id }}" @if (old('type_id') == $type->id) selected @endif>{{ $type->label }}
+                    <option value="{{ $type->id }}" @if (old('type_id') == $type->id || $project->type->id == $type->id ) selected @endif>
+                        {{$type->label}}
                     </option>
-                    @endforeach
-                </select>
-                    @error('type_id')
-                    <div class="invalid-feedback">
-                        {{ $message }}
-                    </div>
-                    @enderror
-                    
+                
+                @endforeach
+            </select>
+            @error('type_id')
+            <div class="invalid-feedback">
+                {{ $message }}
             </div>
+            @enderror
+            
+        </div>
+        
     
             {{-- * technologies --}}
     
@@ -110,22 +130,22 @@
 
             {{-- * file upload --}}         
             <div class="col-6">
-                <label for="file-input" class="form-label">Cover Image</label>
-                <input class="form-control" type="file" id="formFile" name="file-input" id="file-input">
+                <label for="cover_image" class="form-label">Cover Image</label>
+                <input class="form-control" type="file" id="cover_image" name="cover_image">
             </div>
 
             {{-- * file preview --}}
 
             <div class="col-6">
-                <label for="cover_preview">Cover Preview</label><br>
-                <img src="{{asset('/storage/' . $project->cover_image)}}" class="img-fluid" id="cover_image_preview">
+                <label for="cover_image_preview">Cover Preview</label><br>
+                <img src="{{asset('/storage/' . $project->cover_image)}}" alt="cover_image_preview" class="img-fluid" id="cover_image_preview">
             </div>
             
             {{-- * description --}}
     
             <div class="col-12">
                 <label for="description" class="form-label">Description</label>
-                <textarea class="form-control" id="description" name="description" rows="4"></textarea>
+                <textarea class="form-control" id="description" name="description"  rows="4">{{$project->description }}</textarea>
             </div>
         </div>
 

@@ -30,7 +30,7 @@
             <strong>Technologies:</strong> <br>
             
             @forelse ($project->technologies as $technology)
-                {{ $technology->label }} @unless($loop->last) , @else . @endunless
+                {{ $technology->label }} @unless($loop->last) @else  @endunless
             @empty
                 Nessun technology associato
             @endforelse

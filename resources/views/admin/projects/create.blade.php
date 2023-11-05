@@ -1,6 +1,20 @@
 @extends('layouts.app')
 @section('css')
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+@section('scripts')
+<script type="text/javascript">
+    const inputFileElement = document.getElementById('cover_image')
+    const coverImagePreview = document.getElementById('cover_image_preview')
+    if(!coverImagePreview.getAttribute('src')){
+        coverImagePreview.src = "https://placehold.co/400"
+    }
+    
+    inputFileElement.addEventListener('change', function() => {
+        const [ file ] = this.files;
+        coverImagePreview.src = URL.createObjectURL(file)
+    })
+</script>
+@endsection
 
 @endsection
 @section('content')
@@ -110,15 +124,15 @@
             {{-- * file upload --}}
 
             <div class="col-6">
-                <label for="file-input" class="form-label">Cover Image</label>
-                <input class="form-control" type="file" id="formFile" name="file-input" id="file-input">
+                <label for="cover_image" class="form-label">Cover Image</label>
+                <input class="form-control" type="file" id="cover_image" name="cover_image">
             </div>
 
             {{-- * file preview --}}
 
             <div class="col-6">
-                <label for="cover_preview">Cover Preview</label>
-                <img src="" alt="" name="cover_preview">
+                <label for="cover_image_preview">Cover Preview</label>
+                <img src="" alt="" id="cover_image_preview" name="cover_image_preview">
             </div>
 
             {{-- * description --}}

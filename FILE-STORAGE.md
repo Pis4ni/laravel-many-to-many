@@ -121,14 +121,14 @@ altrimenti creo l`input type="file"
                 if($request->hasFile('cover_image')){
                     Storage::delete($project->cover_image);
                 }
-            Storage::put("uploads/projects/{$poject->id}/cover_image",$data['cover_image'])
+            Storage::put("uploads/projects/{$porject->id}/cover_image",$data['cover_image'])
+            }
             <!-- ! se si usa l'id come in questo caso aggiungere anche il save (due volte uno prima uno dopo la riga di Storage ) -->
-    }
 
 #### reactive img tag
 
 - Aggiungere se non presente, uno @yeld che ospiterà la parte di script nel template
--       <script type="text/javascript">
+-       <script type="text/javascript" defer>
             const inputFileElement = document.getElementById('Cover_image')
             const coverImagePreview = document.getElementById('Cover_image_preview')
             
@@ -136,7 +136,7 @@ altrimenti creo l`input type="file"
                 coverImagePreview.src = "https://placehold.co/400"
             }
             
-            inputFileElement addEventListener('change', function() => {
+            inputFileElement.addEventListener('change', function() => {
                 const [ file ] = this.files;
                 coverImagePreview.src = URL.createObjectURL(file)
             })

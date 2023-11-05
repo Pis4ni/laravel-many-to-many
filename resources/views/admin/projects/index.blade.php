@@ -31,17 +31,17 @@
                 <tr>
                     <th scope="row">{{$project->id}}</th>
                     <td>{{$project->title}}</td>
-                    <td><span class="badge" style="background-color: {{$project->type->color}}">{{$project->type?->label}}</span></td>
+                    <td><span class="badge" style="background-color: {{$project->type?->color}} ">{{$project->type?->label}}</span></td>
                     <td>
                         @forelse($project->technologies as $technology)
                           
                           <span class="badge" style="background-color: {{$technology->color}}">{{ $technology->label }}</span>
 
-                          @unless($loop->last) , 
-                          @else . 
+                          @unless($loop->last) 
+                          @else 
                           @endunless
-                        @empty
-                          -
+                          @empty
+                          
                         @endforelse
                         </td>
                     <td>{{$project->slug}}</td>

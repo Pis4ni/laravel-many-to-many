@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     @yield('css')
-
+    
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
@@ -23,11 +23,12 @@
   <body>
     <div id="app">
       @include('partials._navbar')
-
+      
       <main class="">
         @yield('content')
       </main>
-    </div>
+    </div>  
+    @yield('scripts')
   </body>
 
 </html>
